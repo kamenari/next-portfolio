@@ -1,15 +1,23 @@
+import Image from 'next/image'
 import matter from "gray-matter"
 import ReactMarkdown from 'react-markdown'
+import Layout from "../../components/layout"
+import * as style from "../../styles/singleBlog.module.scss"
 
-const SingleBlog = (props) => {
-    console.log(props)
+const SingleBlog = (props: any) => {
     return (
-        <div>
-            <h1>{props.frontmatter.title}</h1>
-            <p>{props.frontmatter.data}</p>
-            <ReactMarkdown children={props.markdownBody} />
-        </div>
-        
+        <Layout>
+            <div className={style.hero}>
+                <Image src={props.frontmatter.image} alt="blog-image" height="500" width="1000" />
+            </div>
+            <div className={style.wrapper}>  
+                <div className={style.container}>               
+                    <h1>{props.frontmatter.title}</h1>
+                    <p>{props.frontmatter.date}</p> 
+                    <ReactMarkdown children={props.markdownBody} />
+                </div> 
+            </div>
+        </Layout> 
     )
 }
 
@@ -18,14 +26,14 @@ export default SingleBlog
 export async function getStaticPaths() {
     const blogSlugs = ((context) => {
         const keys = context.keys()
-        const data = keys.map((key, index) => {
+        const data = keys.map((key: any, index: number) => {
           let slug = key.replace(/^.*[\\\/]/, '').slice(0, -3)
         return slug
     })
     return data
     })(require.context('../../data', true, /\.md$/))
 
-    const paths = blogSlugs.map((blogSlug) => `/blog/${blogSlug}`)
+    const paths = blogSlugs.map((blogSlug: string) => `/blog/${blogSlug}`)
     console.log(paths)
     return {
         paths: paths,

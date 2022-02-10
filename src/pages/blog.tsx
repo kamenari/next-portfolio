@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import matter from "gray-matter"
 import Layout from "../components/layout"
-import * as style from "../styles/blog.module.scss"
+import style from "../styles/blog.module.scss"
 
 const Blog = (props: any) => {
   return (
@@ -11,7 +11,7 @@ const Blog = (props: any) => {
         <div className={style.container}>
             <h1>Blog</h1>
             <p>エンジニアの日常生活をお届けします</p>
-            {props.blogs.map((blog, index) => {
+            {props.blogs.map((blog: any, index: number) => {
                 return(
                     <div key={index} className={style.blogCard}>                            
                         <div className={style.textContainer}>

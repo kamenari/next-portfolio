@@ -14,7 +14,7 @@ const SingleBlog = (props: any) => {
                 <div className={style.container}>               
                     <h1>{props.frontmatter.title}</h1>
                     <p>{props.frontmatter.date}</p> 
-                    <ReactMarkdown children={props.markdownBody} />
+                    <ReactMarkdown>{props.markdownBody}</ReactMarkdown>
                 </div> 
             </div>
         </Layout> 
@@ -41,7 +41,7 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context: any) {
     const { slug } = context.params
     const data = await import(`../../data/${slug}.md`)
     const singleDocument = matter(data.default)
